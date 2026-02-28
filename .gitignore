@@ -1,0 +1,17 @@
+# IDE/editor
+.vscode/
+.idea/
+
+# sistema operativo
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# backups/dumps/temporários
+*.bak
+*.sql
+*.tmp
+*.log
+
+# configurações locais
+*.env
