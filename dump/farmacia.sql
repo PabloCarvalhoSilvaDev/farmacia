@@ -66,6 +66,30 @@ LOCK TABLES `ref_classificacao_produto` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `ref_estado`
+--
+
+DROP TABLE IF EXISTS `ref_estado`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `ref_estado` (
+  `sigla_uf` char(2) NOT NULL,
+  `nome_estado` varchar(50) NOT NULL,
+  PRIMARY KEY (`sigla_uf`),
+  UNIQUE KEY `uk_nome_estado` (`nome_estado`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `ref_estado`
+--
+
+LOCK TABLES `ref_estado` WRITE;
+/*!40000 ALTER TABLE `ref_estado` DISABLE KEYS */;
+/*!40000 ALTER TABLE `ref_estado` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `ref_genero`
 --
 
