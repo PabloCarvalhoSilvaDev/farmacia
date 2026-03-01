@@ -58,14 +58,14 @@ Se existir `deploy/deploy.sql` na raiz do projeto:
 Na **pasta raiz do repositório** (pasta `farmacia`):
 
 ```bash
-cd "c:\Users\PC\OneDrive\Documentos\projetos de banco de dados\farmacia"
-mysql -u seu_usuario -p < deploy/deploy.sql
+cd /path/to/farmacia
+mysql -u <SEU_USUARIO> -p < deploy/deploy.sql
 ```
 
 No cliente MySQL (caminho absoluto; use `/` nos caminhos):
 
 ```sql
-SOURCE C:/Users/PC/OneDrive/Documentos/projetos de banco de dados/farmacia/deploy/deploy.sql;
+SOURCE /path/to/farmacia/deploy/deploy.sql;
 ```
 
 ## Benefícios desta estrutura
