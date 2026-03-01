@@ -74,3 +74,8 @@ SOURCE C:/Users/PC/OneDrive/Documentos/projetos de banco de dados/farmacia/deplo
 - **Referenciais vs principais** — separação clara entre domínio estático e tabelas de negócio.
 - **Principais por domínio** — dentro de principais, cada subpasta (usuario, produto, etc.) mantém a organização por projeto.
 - **Deploy em ordem** — o `deploy.sql` garante a ordem correta respeitando FKs.
+
+## Documentação relacionada
+
+- `documentacao/regras_negocio.md` — políticas e validações que regem o comportamento do sistema.
+- `documentacao/mentalidade_analitica.md` — mapa de stakeholders, métricas e necessidades analíticas.
