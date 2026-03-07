@@ -22,6 +22,6 @@ CREATE TABLE `tb_usuario` (
   UNIQUE KEY `telefone_UNIQUE` (`telefone_usuario`),
   KEY `fk_tb_usuario_ref_genero1_idx` (`fk_genero`),
   KEY `fk_tb_usuario_ref_situacao_usuario1_idx` (`fk_situacao_usuario`),
-  CONSTRAINT `fk_tb_usuario_ref_genero1` FOREIGN KEY (`fk_genero`) REFERENCES `ref_genero` (`id_genero`),
-  CONSTRAINT `fk_tb_usuario_ref_situacao_usuario1` FOREIGN KEY (`fk_situacao_usuario`) REFERENCES `ref_situacao_usuario` (`id_situacao_usuario`)
+  CONSTRAINT `fk_tb_usuario_ref_genero1` FOREIGN KEY (`fk_genero`) REFERENCES `ref_genero` (`id_genero`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `fk_tb_usuario_ref_situacao_usuario1` FOREIGN KEY (`fk_situacao_usuario`) REFERENCES `ref_situacao_usuario` (`id_situacao_usuario`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

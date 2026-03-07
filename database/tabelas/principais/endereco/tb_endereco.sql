@@ -20,6 +20,6 @@ CREATE TABLE `tb_endereco` (
   PRIMARY KEY (`id_endereco`),
   KEY `fk_tb_endereco_ref_cidade_idx` (`fk_cidade`),
   KEY `fk_tb_endereco_tb_usuario1_idx` (`fk_usuario`),
-  CONSTRAINT `fk_tb_endereco_ref_cidade` FOREIGN KEY (`fk_cidade`) REFERENCES `tb_cidade` (`id_cidade`),
-  CONSTRAINT `fk_tb_endereco_tb_usuario1` FOREIGN KEY (`fk_usuario`) REFERENCES `tb_usuario` (`cpf_usuario`)
+  CONSTRAINT `fk_tb_endereco_ref_cidade` FOREIGN KEY (`fk_cidade`) REFERENCES `tb_cidade` (`id_cidade`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `fk_tb_endereco_tb_usuario1` FOREIGN KEY (`fk_usuario`) REFERENCES `tb_usuario` (`cpf_usuario`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

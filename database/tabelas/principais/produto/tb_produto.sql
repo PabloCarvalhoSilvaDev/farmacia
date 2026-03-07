@@ -25,7 +25,7 @@ CREATE TABLE `tb_produto` (
   KEY `fk_tb_produto_ref_tarja_produto1_idx` (`fk_tarja_produto`),
   KEY `fk_tb_produto_tb_usuario1_idx` (`fk_usuario`),
   KEY `idx_tb_produto_nome_produto` (`nome_produto`),
-  CONSTRAINT `fk_tb_produto_ref_classificacao_produto1` FOREIGN KEY (`fk_classificacao_produto`) REFERENCES `ref_classificacao_produto` (`id_classificacao_produto`),
-  CONSTRAINT `fk_tb_produto_ref_tarja_produto1` FOREIGN KEY (`fk_tarja_produto`) REFERENCES `ref_tarja_produto` (`id_tarja_produto`),
-  CONSTRAINT `fk_tb_produto_tb_usuario1` FOREIGN KEY (`fk_usuario`) REFERENCES `tb_usuario` (`cpf_usuario`)
+  CONSTRAINT `fk_tb_produto_ref_classificacao_produto1` FOREIGN KEY (`fk_classificacao_produto`) REFERENCES `ref_classificacao_produto` (`id_classificacao_produto`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `fk_tb_produto_ref_tarja_produto1` FOREIGN KEY (`fk_tarja_produto`) REFERENCES `ref_tarja_produto` (`id_tarja_produto`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `fk_tb_produto_tb_usuario1` FOREIGN KEY (`fk_usuario`) REFERENCES `tb_usuario` (`cpf_usuario`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

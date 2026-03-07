@@ -24,8 +24,8 @@ CREATE TABLE `tb_historico` (
   KEY `fk_tb_historico_ref_tipo_movimentacao1_idx` (`fk_tipo_movimentacao`),
   KEY `idx_tb_historico_data_hora` (`data_hora_historico`),
   KEY `idx_tb_historico_data_produto` (`data_hora_historico`,`fk_produto`),
-  CONSTRAINT `fk_historico_produto1` FOREIGN KEY (`fk_produto`) REFERENCES `tb_produto` (`id_produto`),
-  CONSTRAINT `fk_tb_historico_ref_alteracao1` FOREIGN KEY (`fk_alteracao`) REFERENCES `ref_alteracao` (`id_alteracao`),
-  CONSTRAINT `fk_tb_historico_ref_tipo_movimentacao1` FOREIGN KEY (`fk_tipo_movimentacao`) REFERENCES `ref_tipo_movimentacao` (`id_tipo_movimentacao`),
-  CONSTRAINT `fk_tb_historico_tb_usuario1` FOREIGN KEY (`fk_usuario`) REFERENCES `tb_usuario` (`cpf_usuario`)
+  CONSTRAINT `fk_historico_produto1` FOREIGN KEY (`fk_produto`) REFERENCES `tb_produto` (`id_produto`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `fk_tb_historico_ref_alteracao1` FOREIGN KEY (`fk_alteracao`) REFERENCES `ref_alteracao` (`id_alteracao`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `fk_tb_historico_ref_tipo_movimentacao1` FOREIGN KEY (`fk_tipo_movimentacao`) REFERENCES `ref_tipo_movimentacao` (`id_tipo_movimentacao`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `fk_tb_historico_tb_usuario1` FOREIGN KEY (`fk_usuario`) REFERENCES `tb_usuario` (`cpf_usuario`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
