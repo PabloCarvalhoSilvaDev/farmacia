@@ -2,7 +2,58 @@
 
 ---
 
-## 1. Principais — tb_produto
+## 1. Associativa — tb_usuario_has_ref_tipo_usuario
+
+| Campo                            | Tipo     | Restrições                                                             | Obrigatório | Descrição                             |
+|----------------------------------|----------|------------------------------------------------------------------------|-------------|---------------------------------------|
+| ref_tipo_usuario_id_tipo_usuario | tinyint  | primary key (composta), foreign key → ref_tipo_usuario.id_tipo_usuario | Sim         | Referência ao tipo/perfil do usuário. |
+| tb_usuario_cpf_usuario           | char(11) | primary key (composta), foreign key → tb_usuario.cpf_usuario           | Sim         | Referência ao usuário.                |
+
+**Nota:** Tabela associativa N:N entre usuário e tipo de usuário (um usuário pode ter vários perfis e um perfil pode estar em vários usuários).
+
+---
+
+## 2. Principais — tb_cidade
+
+| Campo       | Tipo         | Restrições                                            | Obrigatório | Descrição                                 |
+|-------------|--------------|-------------------------------------------------------|-------------|-------------------------------------------|
+| id_cidade   | int          | primary key, unsigned, auto increment                 | Sim         | Identificador automático único da cidade. |
+| fk_estado   | char(2)      | foreign key → ref_estado.sigla_uf                     | Sim         | Referência ao estado (UF) da cidade.      |
+| nome_cidade | varchar(100) | unique com fk_estado (uk_cidade_por_estado)           | Sim         | Nome da cidade.                           |
+
+---
+
+## 3. Principais — tb_endereco
+
+| Campo                | Tipo         | Restrições                            | Obrigatório | Descrição                                   |
+|----------------------|--------------|---------------------------------------|-------------|---------------------------------------------|
+| id_endereco          | int          | primary key, unsigned, auto increment | Sim         | Identificador automático único do endereço. |
+| fk_cidade            | int          | foreign key → tb_cidade.id_cidade     | Sim         | Referência à cidade do endereço.            |
+| fk_usuario           | char(11)     | foreign key → tb_usuario.cpf_usuario  | Sim         | Referência ao usuário dono do endereço.     |
+| cep_endereco         | char(8)      |                                       | Sim         | CEP (apenas números, 8 dígitos).            |
+| logradouro_endereco  | varchar(150) |                                       | Sim         | Logradouro (rua, avenida, etc.).            |
+| numero_endereco      | varchar(10)  |                                       | Sim         | Número do endereço.                         |
+| complemento_endereco | varchar(50)  |                                       | Não         | Complemento (bloco, apto, etc.).            |
+| bairro_endereco      | varchar(100) |                                       | Sim         | Bairro.                                     |
+
+---
+
+## 4. Principais — tb_historico
+
+| Campo                            | Tipo      | Restrições                                               | Obrigatório | Descrição                                                              |
+|----------------------------------|-----------|----------------------------------------------------------|-------------|------------------------------------------------------------------------|
+| id_historico                     | bigint    | primary key, unsigned, auto increment                    | Sim         | Identificador automático único do histórico.                           |
+| fk_alteracao                     | tinyint   | foreign key → ref_alteracao.id_alteracao                 | Sim         | Referência ao tipo de alteração do histórico.                          |
+| fk_tipo_movimentacao             | tinyint   | foreign key → ref_tipo_movimentacao.id_tipo_movimentacao | Sim         | Referência ao tipo de movimentação (entrada/saída).                    |
+| fk_produto                       | bigint    | foreign key → tb_produto.id_produto                      | Sim         | Referência ao produto que foi movimentado.                             |
+| fk_usuario                       | char(11)  | foreign key → tb_usuario.cpf_usuario                     | Sim         | Referência ao usuário que realizou a movimentação.                     |
+| quantidade_historico             | int       |                                                          | Sim         | Quantidade em estoque no momento do registro (ou após a movimentação). |
+| quantidade_movimentada_historico | int       |                                                          | Sim         | Quantidade movimentada (entrada ou saída) neste registro.              |
+| data_hora_historico              | timestamp |                                                          | Sim         | Data e hora em que o histórico foi registrado.                         |
+
+---
+
+## 5. Principais — tb_produto
 
 | Campo                    | Tipo          | Restrições                                                       | Obrigatório | Descrição                                                           |
 |--------------------------|---------------|------------------------------------------------------------------|-------------|---------------------------------------------------------------------|
@@ -20,7 +71,7 @@
 
 ---
 
-## 2. Principais — tb_usuario
+## 6. Principais — tb_usuario
 
 | Campo               | Tipo         | Restrições                                             | Obrigatório | Descrição                                               |
 |---------------------|--------------|--------------------------------------------------------|-------------|---------------------------------------------------------|
@@ -32,55 +83,6 @@
 | email_usuario       | varchar(100) | unique                                                 | Sim         | E-mail do usuário (único no sistema).                   |
 | senha_usuario       | varchar(255) |                                                        | Sim         | Senha do usuário (armazenada de forma segura).          |
 | telefone_usuario    | varchar(19)  | unique                                                 | Sim         | Telefone do usuário (único no sistema).                 |
-
----
-
-## 3. Principais — tb_cidade
-
-| Campo       | Tipo         | Restrições                                            | Obrigatório | Descrição                                 |
-|-------------|--------------|-------------------------------------------------------|-------------|-------------------------------------------|
-| id_cidade   | int          | primary key, unsigned, auto increment                 | Sim         | Identificador automático único da cidade. |
-| fk_estado   | char(2)      | foreign key → ref_estado.sigla_uf                     | Sim         | Referência ao estado (UF) da cidade.      |
-| nome_cidade | varchar(100) | unique com fk_estado (uk_cidade_por_estado)           | Sim         | Nome da cidade.                           |
-
----
-
-## 4. Principais — tb_endereco
-
-| Campo                | Tipo         | Restrições                            | Obrigatório | Descrição                                   |
-|----------------------|--------------|---------------------------------------|-------------|---------------------------------------------|
-| id_endereco          | int          | primary key, unsigned, auto increment | Sim         | Identificador automático único do endereço. |
-| fk_cidade            | int          | foreign key → tb_cidade.id_cidade     | Sim         | Referência à cidade do endereço.            |
-| fk_usuario           | char(11)     | foreign key → tb_usuario.cpf_usuario  | Sim         | Referência ao usuário dono do endereço.     |
-| cep_endereco         | char(8)      |                                       | Sim         | CEP (apenas números, 8 dígitos).            |
-| logradouro_endereco  | varchar(150) |                                       | Sim         | Logradouro (rua, avenida, etc.).            |
-| numero_endereco      | varchar(10)  |                                       | Sim         | Número do endereço.                         |
-| complemento_endereco | varchar(50)  |                                       | Não         | Complemento (bloco, apto, etc.).            |
-| bairro_endereco      | varchar(100) |                                       | Sim         | Bairro.                                     |
-
----
-
-## 5. Principais — tb_historico
-
-| Campo                            | Tipo      | Restrições                                               | Obrigatório | Descrição                                                              |
-|----------------------------------|-----------|----------------------------------------------------------|-------------|------------------------------------------------------------------------|
-| id_historico                     | bigint    | primary key, unsigned, auto increment                    | Sim         | Identificador automático único do histórico.                           |
-| fk_alteracao                     | tinyint   | foreign key → ref_alteracao.id_alteracao                 | Sim         | Referência ao tipo de alteração do histórico.                          |
-| fk_tipo_movimentacao             | tinyint   | foreign key → ref_tipo_movimentacao.id_tipo_movimentacao | Sim         | Referência ao tipo de movimentação (entrada/saída).                    |
-| fk_produto                       | bigint    | foreign key → tb_produto.id_produto                      | Sim         | Referência ao produto que foi movimentado.                             |
-| fk_usuario                       | char(11)  | foreign key → tb_usuario.cpf_usuario                     | Sim         | Referência ao usuário que realizou a movimentação.                     |
-| quantidade_historico             | int       |                                                          | Sim         | Quantidade em estoque no momento do registro (ou após a movimentação). |
-| quantidade_movimentada_historico | int       |                                                          | Sim         | Quantidade movimentada (entrada ou saída) neste registro.              |
-| data_hora_historico              | timestamp |                                                          | Sim         | Data e hora em que o histórico foi registrado.                         |
-
----
-
-## 6. Referenciais — ref_estado
-
-| Campo       | Tipo         | Restrições                            | Obrigatório | Descrição                                                |
-|-------------|--------------|---------------------------------------|-------------|----------------------------------------------------------|
-| sigla_uf    | char(2)      | primary key                           | Sim         | Sigla da UF (estado) — ex.: SP, RJ.                     |
-| nome_estado | varchar(50)  | unique                                | Sim         | Nome do estado.                                          |
 
 ---
 
@@ -102,7 +104,16 @@
 
 ---
 
-## 9. Referenciais — ref_genero
+## 9. Referenciais — ref_estado
+
+| Campo       | Tipo         | Restrições                            | Obrigatório | Descrição                                                |
+|-------------|--------------|---------------------------------------|-------------|----------------------------------------------------------|
+| sigla_uf    | char(2)      | primary key                           | Sim         | Sigla da UF (estado) — ex.: SP, RJ.                     |
+| nome_estado | varchar(50)  | unique                                | Sim         | Nome do estado.                                          |
+
+---
+
+## 10. Referenciais — ref_genero
 
 | Campo       | Tipo        | Restrições                            | Obrigatório | Descrição                                 |
 |-------------|-------------|---------------------------------------|-------------|-------------------------------------------|
@@ -111,7 +122,7 @@
 
 ---
 
-## 10. Referenciais — ref_situacao_usuario
+## 11. Referenciais — ref_situacao_usuario
 
 | Campo                 | Tipo        | Restrições                            | Obrigatório | Descrição                                          |
 |-----------------------|-------------|---------------------------------------|-------------|----------------------------------------------------|
@@ -120,7 +131,7 @@
 
 ---
 
-## 11. Referenciais — ref_tarja_produto
+## 12. Referenciais — ref_tarja_produto
 
 | Campo              | Tipo        | Restrições                            | Obrigatório | Descrição                                                     |
 |--------------------|-------------|---------------------------------------|-------------|---------------------------------------------------------------|
@@ -129,7 +140,7 @@
 
 ---
 
-## 12. Referenciais — ref_tipo_movimentacao
+## 13. Referenciais — ref_tipo_movimentacao
 
 | Campo                  | Tipo        | Restrições                            | Obrigatório | Descrição                                               |
 |------------------------|-------------|---------------------------------------|-------------|---------------------------------------------------------|
@@ -138,7 +149,7 @@
 
 ---
 
-## 13. Referenciais — ref_tipo_usuario
+## 14. Referenciais — ref_tipo_usuario
 
 | Campo             | Tipo        | Restrições                            | Obrigatório | Descrição                                                            |
 |-------------------|-------------|---------------------------------------|-------------|----------------------------------------------------------------------|
@@ -146,12 +157,3 @@
 | nome_tipo_usuario | varchar(45) | unique                                | Sim         | Nome do tipo/perfil do usuário (ex.: admin, farmacêutico, vendedor). |
 
 ---
-
-## 14. Associativa — tb_usuario_has_ref_tipo_usuario
-
-| Campo                            | Tipo     | Restrições                                                             | Obrigatório | Descrição                             |
-|----------------------------------|----------|------------------------------------------------------------------------|-------------|---------------------------------------|
-| ref_tipo_usuario_id_tipo_usuario | tinyint  | primary key (composta), foreign key → ref_tipo_usuario.id_tipo_usuario | Sim         | Referência ao tipo/perfil do usuário. |
-| tb_usuario_cpf_usuario           | char(11) | primary key (composta), foreign key → tb_usuario.cpf_usuario           | Sim         | Referência ao usuário.                |
-
-**Nota:** Tabela associativa N:N entre usuário e tipo de usuário (um usuário pode ter vários perfis e um perfil pode estar em vários usuários).
