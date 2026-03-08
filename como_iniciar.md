@@ -33,7 +33,7 @@ cd farmacia
 
 ## 3. Preparar o script de deploy
 
-O arquivo `deploy/deploy.sql` coordena a criação do banco e de todas as tabelas na ordem certa. Certifique-se de que o caminho está correto e atualizado (em trabalhos futuros o script pode ser automatizado no `Iniciar o projeto.bat`).
+O arquivo `deploy/deploy.sql` coordena a criação do banco e de todas as tabelas na ordem certa. Certifique-se de que o caminho está correto e atualizado.
 
 ---
 
@@ -73,7 +73,7 @@ SOURCE deploy.sql;
 - **Erro ao abrir o arquivo `deploy.sql`:** verifique se você está no diretório correto antes de executar `SOURCE` ou use o caminho absoluto. Lembre-se de que o comando `SOURCE` só funciona dentro do prompt do MySQL.
 - **Caminho com espaços:** envolva em aspas ou use barras `/` dentro do prompt. Por exemplo:
   ```sql
-  SOURCE "C:/Users/PC/OneDrive/Documentos/farmacia/deploy/deploy.sql";
+  SOURCE "C:/Users/SeuUsuario/Documentos/farmacia/deploy/deploy.sql";
   ```
 
 ---
